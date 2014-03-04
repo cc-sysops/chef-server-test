@@ -22,4 +22,10 @@ ENDCONFIG
 #    action :delete
 #    provisioner_options ChefMetal.enclosing_provisioner_options.merge(local_provisioner_options)
   end
+
+  machine_file '/etc/chef/client.pem' do
+    machine "metalnode#{i}"
+    action :delete
+  end
+
 end

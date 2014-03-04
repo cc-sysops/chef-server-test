@@ -7,10 +7,17 @@ num_webservers = 2
     tag 'install'
     tag 'nginx'
 
-    recipe 'apt'
+#    recipe 'apt'
     recipe 'nginx'
 
 
 #    action [ :create, :converge ]
   end
+
+  machine_file '/etc/chef/client.pem' do
+    machine "metalnode#{i}"
+    action :delete
+  end
+
+
 end

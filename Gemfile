@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
-gem 'chef-metal'
-gem 'cheffish'
+gem 'chef-metal', path: './pkg/'
+gem 'cheffish', path: './pkg/'
 gem 'thor'
 gem 'mixlib-shellout'
 gem 'mixlib-config'

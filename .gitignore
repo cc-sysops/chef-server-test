@@ -1,2 +1,10 @@
 *~
+data_bags/tests/*.json
+cache/releases/*.deb
+cache/*.deb
+nodes/
+clients/
 vendor/
+vms/.vagrant/
+vms/*.vm
+vms/Vagrantfile

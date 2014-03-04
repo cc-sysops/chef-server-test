@@ -81,6 +81,16 @@ module ChefServerTest
       Chef::JSONCompat.to_json_pretty(to_hash)
     end
 
+    def self.ensure_root_dirs_exist!
+      ensure_test_data_bag_dir!
+      ensure_cache_path_dir!
+      ensure_releases_path_dir!
+      ensure_vms_path_dir!
+      ensure_cluster_repo_dir!
+      ensure_nodes_dir!
+      ensure_client_dir!
+    end
+
     def self.generate_data_bag!
       ensure_test_data_bag_dir!
       File.open(File.join(data_bags_path, 'tests', 'default.json'), "w") do |f|
@@ -99,8 +109,37 @@ module ChefServerTest
 
     private
 
+    def self.ensure_data_bags_path_dir!
+      Pathname.new(data_bags_path).mkpath
+    end
+
     def self.ensure_test_data_bag_dir!
       Pathname.new(File.join(base_path, 'data_bags', 'tests')).mkpath
     end
+
+    def self.ensure_cache_path_dir!
+      Pathname.new(releases_path).mkpath
+    end
+
+    def self.ensure_release_path_dir!
+      Pathname.new(releases_path).mkpath
+    end
+
+    def self.ensure_vms_path_dir!
+      Pathname.new(vms_path).mkpath
+    end
+
+    def self.ensure_cluster_repo_dir!
+      Pathname.new(cluster_repo).mkpath
+    end
+
+    def self.ensure_nodes_dir!
+      Pathname.new(File.join(base_path, 'nodes')).mkpath
+    end
+
+    def self.ensure_client_dir!
+      Pathname.new(File.join(base_path, 'client')).mkpath
+    end
+
   end
 end

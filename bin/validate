@@ -18,28 +18,41 @@ class ValidateCLI < Thor
     shell_out 'vagrant destroy -f', cwd: File.join(BASE_DIR, 'vms')
   end
 
+  desc 'clean_data', 'clean node/client data'
+  def clean_data
+    shell_out 'rm -fr nodes/ clients/'
+  end
+
   desc 'list', 'list running vagrants'
   def list
     shell_out 'vagrant status', cwd: File.join(BASE_DIR, 'vms')
+  end
+
+  desc 'login [BOX_NAME]', 'login to running vagrant'
+  def login(box_name = nil)
+    unless box_name 
+      raise "Please Enter a Box Name"
+    end
+    shell_out 'vagrant ssh #{box_name}', cwd: File.join(BASE_DIR, 'vms')
   end
 
   desc 'delete_multi', 'runs delete-multi recipe from cc-test CB'
   def delete_multi(candidate_pkg_path = nil)
     ensure_valid_package_name! candidate_pkg_path if candidate_pkg_path
 
-#    reset # TODO: Add --no-reset option
     normalized_candidate_pkg_path = normalize_candidate_pkg_path!(candidate_pkg_path) if candidate_pkg_path
     generate_test_config!(normalized_candidate_pkg_path)
 
     puts "Running delete-multi test on: #{normalized_candidate_pkg_path}"
     chef_client 'cc-tests::delete-multi'
+    reset
   end
 
   desc 'install_multi', 'runs install-multi recipe from cc-test CB'
   def install_multi(candidate_pkg_path = nil)
     ensure_valid_package_name! candidate_pkg_path if candidate_pkg_path
 
-    reset # TODO: Add --no-reset option
+    clean_data
     normalized_candidate_pkg_path = normalize_candidate_pkg_path!(candidate_pkg_path) if candidate_pkg_path
     generate_test_config!(normalized_candidate_pkg_path)
 
@@ -51,7 +64,7 @@ class ValidateCLI < Thor
   def install(candidate_pkg_path = nil)
     ensure_valid_package_name! candidate_pkg_path if candidate_pkg_path
 
-    reset # TODO: Add --no-reset option
+    clean_data
     normalized_candidate_pkg_path = normalize_candidate_pkg_path!(candidate_pkg_path) if candidate_pkg_path
     generate_test_config!(normalized_candidate_pkg_path)
 
