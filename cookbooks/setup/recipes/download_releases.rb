@@ -3,10 +3,9 @@ require 'chef/util/file_edit'
 BASE_DIR = ENV['PWD']
 CACHE_DIR = File.join(BASE_DIR, 'cache')
 
-releases = %w(11.0.4 11.0.6 11.0.8 11.0.10)
+releases = %w(11.0.10)
 
-platforms = { ubuntu: %w(10.04 11.04 12.04),
-              el:     %w(5 6) }
+platforms = { ubuntu: %w(12.04) }
 
 package_urls = platforms.map do |platform, platform_versions|
   platform_versions.map do |platform_version|

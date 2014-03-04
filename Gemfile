@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
-
+gem 'chef-metal'
+gem 'cheffish'
 gem 'thor'
 gem 'mixlib-shellout'
 gem 'mixlib-config'

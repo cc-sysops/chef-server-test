@@ -1,5 +1,2 @@
-/nodes
-/vms
-/clients
-/cache
-/data_bags
+*~
+vendor/
